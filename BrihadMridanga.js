@@ -9,7 +9,7 @@
 // @grant        none
 // ==/UserScript==
 
-const PROFILE_HEADER_CLASS = "YtmXM"
+const PROFILE_HEADER_CLASS = "_2Ts6i"
 const SEND_BUTTON = "p2rjqpw5"
 const INVALID_NUM = "_2Nr6U"
 
