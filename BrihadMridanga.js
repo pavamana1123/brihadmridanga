@@ -189,7 +189,7 @@ async function send(e){
     e.target.remove()
 
     var ws = []
-    var tabs = 10
+    var tabs = 5
     for(var k=0; k<tabs; k++){
         ws.push(window.open(""))
     }
@@ -197,6 +197,7 @@ async function send(e){
     var data = parseLinks(document.getElementById("raw").value)
     var w
     var elapsedSeconds = 0
+    var pendingTimer = 0
     for(var i=0; i<data.length;i++){
         window.document.title=`Sending ${i+1} of ${data.length}`
         if(elapsedSeconds>=10000000000000){
@@ -226,7 +227,15 @@ async function send(e){
                 await sleep(150)
                 w.window.document.getElementsByClassName(SEND_BUTTON)[0].click()
                 //console.log("sent", new Date())
-                await sleep(300)
+                while(document.querySelectorAll('span[aria-label=" Pending "]').length){
+                    pendingTimer++
+                    if(pendingTimer>150){
+                        current.textContent="Pending Timed-out"
+                        pendingTimer=0
+                        break
+                    }
+                    await sleep(300)
+                }
                 current.textContent="Sent"
                 break
             default:
