@@ -199,7 +199,7 @@ async function send(e){
     var elapsedSeconds = 0
     var pendingTimer = 0
     for(var i=0; i<data.length;i++){
-        window.document.title=`Sending ${i+1} of ${data.length}`
+        window.document.title=`${i+1}/${data.length}`
         if(elapsedSeconds>=10000000000000){
             w.close()
             await sleep(500)
@@ -224,10 +224,13 @@ async function send(e){
         switch(msg){
             case 'OK':
                 //console.log("waiting to send", new Date())
+
+                var msgC = w.window.document.getElementsByClassName("_27K43").length
+
                 await sleep(150)
                 w.window.document.getElementsByClassName(SEND_BUTTON)[0].click()
-                //console.log("sent", new Date())
-                while(document.querySelectorAll('span[aria-label=" Pending "]').length){
+
+                while(w.window.document.getElementsByClassName("_27K43").length<=msgC){
                     pendingTimer++
                     if(pendingTimer>150){
                         current.textContent="Pending Timed-out"
@@ -236,7 +239,23 @@ async function send(e){
                     }
                     await sleep(300)
                 }
+                pendingTimer = 0
+
+                await sleep(150)
+                //console.log("sent", new Date(), w.window.document.querySelectorAll('span[aria-label=" Pending "]'))
+                while(w.window.document.querySelectorAll('span[aria-label=" Pending "]').length){
+                    //console.log("pending")
+                    pendingTimer++
+                    if(pendingTimer>150){
+                        current.textContent="Pending Timed-out"
+                        pendingTimer=0
+                        break
+                    }
+                    await sleep(300)
+                }
+                await sleep(500)
                 current.textContent="Sent"
+                //console.log("here",w.window.document.querySelectorAll('span[aria-label=" Pending "]'), w.window.document.querySelectorAll('span[aria-label=" Pending "]').length)
                 break
             default:
                 current.textContent = msg
