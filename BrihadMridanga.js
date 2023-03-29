@@ -134,6 +134,16 @@ function createLinksInput(){
 
             var r = document.createElement("tr")
 
+            var checkbox = document.createElement('input')
+            checkbox.type = 'checkbox'
+            checkbox.name = 'skipbox'
+            checkbox.checked = false
+            checkbox.id = `skipbox-${link.phone}-${i}`
+            var skiptd = document.createElement("td")
+            skiptd.style="padding-left:8px"
+            skiptd.appendChild(checkbox)
+            r.appendChild(skiptd)
+
             var nc = document.createElement("td")
             nc.textContent = link.name
             nc.title= link.text
@@ -208,11 +218,19 @@ async function send(e){
             w.blur()
             window.focus()
         }
+
+        var current = document.getElementById(`${data[i].phone}-${i}`)
+        var time = document.getElementById(`time-${data[i].phone}-${i}`)
+
+        if(document.getElementById(`skipbox-${data[i].phone}-${i}`).checked){
+            current.textContent="Skipped"
+            continue
+        }
+
         w = ws[i%tabs]
         w.window.open(data[i].link,"_self")
         await sleep(100)
-        var current = document.getElementById(`${data[i].phone}-${i}`)
-        var time = document.getElementById(`time-${data[i].phone}-${i}`)
+
         current.textContent="Sending..."
         // current.scrollIntoView()
         var t1 = new Date().getTime()
