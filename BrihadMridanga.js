@@ -243,12 +243,12 @@ async function send(e){
             case 'OK':
                 //console.log("waiting to send", new Date())
 
-                var msgC = w.window.document.getElementsByClassName("_27K43").length
+                var msgC = w.window.document.getElementsByClassName("ooty25bp").length
 
                 await sleep(150)
                 w.window.document.getElementsByClassName(SEND_BUTTON)[0].click()
 
-                while(w.window.document.getElementsByClassName("_27K43").length<=msgC){
+                while(w.window.document.getElementsByClassName("ooty25bp").length<=msgC){
                     pendingTimer++
                     if(pendingTimer>150){
                         current.textContent="Pending Timed-out"
