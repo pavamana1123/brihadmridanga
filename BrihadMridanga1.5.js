@@ -298,8 +298,13 @@ async function send(e){
     setTimeout(()=>{
         document.head.innerHTML=`
         <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap');
             body {
                 margin: 0;
+                background: black;
+                color: white;
+                font-family: 'Roboto Mono', monospace;
+                font-weight: 500;
             }
 
             #bmheader  {
