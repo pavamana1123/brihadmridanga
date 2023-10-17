@@ -8,9 +8,39 @@ body {
     background: var(--bg);
 }
 
-#title {
+#body{
+    display: flex;
+    flex-direction: row;
 }
 
+
+#contacts{
+    width: 49vw;
+
+    background-color: var(--bg);
+    box-shadow: 1vw;
+    box-sizing: border-box;
+}
+
+
+#content-cont{
+    display: flex;
+    flex-direction: column;
+    width: 49vw;
+}
+
+.person{
+    padding: 1vw;
+    border-radius: 0.5vw;
+    background-color: white;
+    margin: 1vw;
+    cursor: pointer;
+    box-shadow: #00000054 1px 3px 3px 0px;
+}
+
+.person:hover {
+    background: #eee;
+}
 
 #header{
     background-color: var(--bar);
@@ -26,7 +56,7 @@ body {
 #import-button {
     border: 1px white solid;
     padding: 1vw;
-    border-radius: 1vw;
+    border-radius: .5vw;
     cursor: pointer;
 }
 
@@ -35,40 +65,35 @@ body {
     color: var(--bar);
 }
 
-.right{
-    float: right;
-}
-
-.num1{
-    margin: 10px;
-    padding: 10px;
-    background-color: rgb(22, 128, 36);
-    width: 25%;
-}
-
-.num2{
-    margin: 10px;
-    padding: 10px;
-    background-color: rgb(2, 30, 39);
-    width: 25%;
-}
-
-.num3{
-    margin: 10px;
-    padding: 10px;
-    background-color: rgb(22, 128, 36);
-    width: 25%;
-}
-
-.right-box {
-    width: 30%; /* Adjust the width as needed */
-    float: right;
-    background-color: lightcoral;
-    height: 500px;
+#screen {
+    width: 49vw;
     display: flex;
     flex-direction: column;
-    align-items: flex-start; 
-    height: 80vh; 
-
+    background-color: white;
+    margin: 1vw;
 }
 
+#wa-header{
+    background-color: #f1f2f6;
+    padding: 1vw;
+    border-radius: 0.5vw;
+    font-weight: bold;
+}
+
+#wa-body{
+    display: flex;
+    background-color:#f0ebe5 ;
+    justify-content:right;
+
+    max-height: 75vh;
+    overflow-y: scroll;
+}
+
+.wa-msg{
+    background-color: #d8fdd2;
+    width: 80%;
+    margin: 2vw;
+    padding:1.5vw;
+    border-radius: 1vw;
+    height: fit-content;
+}
