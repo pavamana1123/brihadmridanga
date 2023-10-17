@@ -1,0 +1,74 @@
+:root {
+    --bar: #1976d2;
+    --bg: #e7ebf0;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+}
+
+#title {
+}
+
+
+#header{
+    background-color: var(--bar);
+    padding: 10px;
+    color: white;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#import-button {
+    border: 1px white solid;
+    padding: 1vw;
+    border-radius: 1vw;
+    cursor: pointer;
+}
+
+#import-button:hover {
+    background-color: white;
+    color: var(--bar);
+}
+
+.right{
+    float: right;
+}
+
+.num1{
+    margin: 10px;
+    padding: 10px;
+    background-color: rgb(22, 128, 36);
+    width: 25%;
+}
+
+.num2{
+    margin: 10px;
+    padding: 10px;
+    background-color: rgb(2, 30, 39);
+    width: 25%;
+}
+
+.num3{
+    margin: 10px;
+    padding: 10px;
+    background-color: rgb(22, 128, 36);
+    width: 25%;
+}
+
+.right-box {
+    width: 30%; /* Adjust the width as needed */
+    float: right;
+    background-color: lightcoral;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    height: 80vh; 
+
+}
+
