@@ -9,9 +9,20 @@
 // @grant        none
 // ==/UserScript==
 
+const listenToEvents = ()=>{
 
-function setEventListeners(){
-    
+    // Import Event
+    const importButton = document.getElementById("import-button")
+
+    importButton.addEventListener("click", async () => {
+        console.log('clicked')
+        try {
+            const clipboardText = await navigator.clipboard.readText()
+            console.log(clipboardText.split('\n'))  
+        } catch (error) {
+            console.error("Failed to read from clipboard:", error)
+        }
+    })
 }
 
 (function () {
@@ -25,38 +36,38 @@ function setEventListeners(){
     setTimeout(() => {
         document.head.innerHTML = `
         <style>
-            
+
         :root {
             --bar: #1976d2;
             --bg: #e7ebf0;
         }
-        
+
         body {
             margin: 0;
             background: var(--bg);
         }
-        
+
         #body{
             display: flex;
             flex-direction: row;
         }
-        
-        
+
+
         #contacts{
             width: 49vw;
-        
+
             background-color: var(--bg);
             box-shadow: 1vw;
             box-sizing: border-box;
         }
-        
-        
+
+
         #content-cont{
             display: flex;
             flex-direction: column;
             width: 49vw;
         }
-        
+
         .person{
             padding: 1vw;
             border-radius: 0.5vw;
@@ -65,34 +76,35 @@ function setEventListeners(){
             cursor: pointer;
             box-shadow: #00000054 1px 3px 3px 0px;
         }
-        
+
         .person:hover {
             background: #eee;
         }
-        
+
         #header{
             background-color: var(--bar);
             padding: 10px;
             color: white;
-        
+
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
         }
-        
+
         #import-button {
             border: 1px white solid;
             padding: 1vw;
             border-radius: .5vw;
             cursor: pointer;
+            user-select: none;
         }
-        
+
         #import-button:hover {
             background-color: white;
             color: var(--bar);
         }
-        
+
         #screen {
             width: 49vw;
             display: flex;
@@ -100,23 +112,23 @@ function setEventListeners(){
             background-color: white;
             margin: 1vw;
         }
-        
+
         #wa-header{
             background-color: #f1f2f6;
             padding: 1vw;
             border-radius: 0.5vw;
             font-weight: bold;
         }
-        
+
         #wa-body{
             display: flex;
             background-color:#f0ebe5 ;
             justify-content:right;
-        
+
             max-height: 75vh;
             overflow-y: scroll;
         }
-        
+
         .wa-msg{
             background-color: #d8fdd2;
             width: 80%;
@@ -139,28 +151,33 @@ function setEventListeners(){
         <div id="import-button">Import from Clipboard</div>
       </div>
     </div>
-  
+
     <div id="body">
       <div id="contacts">
         <div id="contact-cont">
+
           <div class="person">
-            <div class="name"/>
-            <div class="num"/>
+            <div class="name"></div>
+            <div class="num"></div>
           </div>
         </div>
       </div>
-  
+
       <div id="screen">
-        <div id="wa-header"/>
-  
+        <div id="wa-header">
+          welcome to whatsapp
+        </div>
+
         <div id="wa-body">
-          <div class="wa-msg"/>
+          <div class="wa-msg"></div>
         </div>
       </div>
-  
+
     </div>
-  
+
   </body>
     `.trim()
+
+  listenToEvents()
 
 })();
