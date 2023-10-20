@@ -24,6 +24,29 @@ const listenToEvents = ()=>{
         } 
     })
 }
+//parse query parameter
+    const url = new URL('https://web.whatsapp.com/send?phone=918867473896&name=Mahesh%20N%20Seervi&text=Hare%20Krishna%20Mahesh.%0A%0AInviting%20you%20for%20%2AFOLK%204%2A%20session%20this%20Sunday.%0A%0A%2ATopic%2A%3A%20_Signficance%20of%20Dasara_%0A%F0%9F%97%93%EF%B8%8F%20%2ASunday%2C%2022%20October%2C%202023%2A%20%F0%9F%95%94%20%2A4.30%20PM%20-%207.30%20PM%2A%0A%0APlease%20report%20by%204.15%20PM.');
+    const searchParams = url.searchParams;
+
+    const param1Value = searchParams.get('name');
+    const param2Value = searchParams.get('phone');
+    const param3Value = searchParams.get('text');
+
+    console.log(`param1: ${param1Value}`);
+    console.log(`param2: ${param2Value}`);
+    console.log(`param3: ${param3Value}`);
+
+    let links=clipboardText.split('\n')
+    links.map ()=> {
+     
+const urlParams = new URLSearchParams(window.location.search);
+
+// Access individual parameters
+let name = urlParams.get('name'); // Retrieves the value of 'name' parameter, which is "John"
+let age = urlParams.get('age');   // Retrieves the value of 'age' parameter, which is "30"
+let msg = urlParams.get('text'); 
+    
+    }
 
 (function () {
     'use strict';
