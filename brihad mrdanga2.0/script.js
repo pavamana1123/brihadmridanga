@@ -18,10 +18,10 @@ const listenToEvents = ()=>{
         console.log('clicked')
         try {
             const clipboardText = await navigator.clipboard.readText()
-            console.log(clipboardText.split('\n'))  
+            // console.log(clipboardText.split('\n'))  
         } catch (error) {
             console.error("Failed to read from clipboard:", error)
-        }
+        } 
     })
 }
 
