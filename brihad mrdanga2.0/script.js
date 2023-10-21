@@ -9,44 +9,85 @@
 // @grant        none
 // ==/UserScript==
 
-const listenToEvents = ()=>{
+
+let links = []
+
+const isValidURL = (str) => {
+    try {
+        new URL(str)
+        return true
+    } catch {
+        return false
+    }
+}
+
+const listenToEvents = () => {
 
     // Import Event
     const importButton = document.getElementById("import-button")
-
     importButton.addEventListener("click", async () => {
-        console.log('clicked')
         try {
             const clipboardText = await navigator.clipboard.readText()
-            // console.log(clipboardText.split('\n'))  
+
+            links = clipboardText.split('\n').filter(link => {
+                return isValidURL(link)
+            }).map(link => {
+                let params = new URL(link).searchParams
+                return {
+                    n: decodeURIComponent(params.get('name')),
+                    p: params.get('phone'),
+                    m: decodeURIComponent(params.get('text')),
+                }
+            })
+            localStorage.setItem('links', JSON.stringify(links))
+            renderSavedData()
         } catch (error) {
             console.error("Failed to read from clipboard:", error)
-        } 
+        }
     })
+
 }
-//parse query parameter
-    const url = new URL('https://web.whatsapp.com/send?phone=918867473896&name=Mahesh%20N%20Seervi&text=Hare%20Krishna%20Mahesh.%0A%0AInviting%20you%20for%20%2AFOLK%204%2A%20session%20this%20Sunday.%0A%0A%2ATopic%2A%3A%20_Signficance%20of%20Dasara_%0A%F0%9F%97%93%EF%B8%8F%20%2ASunday%2C%2022%20October%2C%202023%2A%20%F0%9F%95%94%20%2A4.30%20PM%20-%207.30%20PM%2A%0A%0APlease%20report%20by%204.15%20PM.');
-    const searchParams = url.searchParams;
 
-    const param1Value = searchParams.get('name');
-    const param2Value = searchParams.get('phone');
-    const param3Value = searchParams.get('text');
-
-    console.log(`param1: ${param1Value}`);
-    console.log(`param2: ${param2Value}`);
-    console.log(`param3: ${param3Value}`);
-
-    let links=clipboardText.split('\n')
-    links.map ()=> {
-     
-const urlParams = new URLSearchParams(window.location.search);
-
-// Access individual parameters
-let name = urlParams.get('name'); // Retrieves the value of 'name' parameter, which is "John"
-let age = urlParams.get('age');   // Retrieves the value of 'age' parameter, which is "30"
-let msg = urlParams.get('text'); 
-    
+const markdown = (text) => {
+    var textArr = text.split("")
+    var bc = 0
+    var ic = 0
+    for (let i = 0; i < textArr.length; i++) {
+        if (textArr[i] == "*") {
+            textArr[i] = bc % 2 == 0 ? "<b>" : "</b>"
+            bc++
+        } else if (textArr[i] == "_") {
+            textArr[i] = ic % 2 == 0 ? "<i>" : "</i>"
+            ic++
+        }
     }
+    return textArr.join("")
+}
+
+const showMessage = (i) => {
+    let link = links[i]
+    document.getElementById('wa-name').innerHTML = link.n
+    document.getElementById('wa-msg').innerHTML = markdown(link.m)
+}
+
+const renderSavedData = () => {
+    try {
+        links = JSON.parse(localStorage.getItem('links'))
+    } catch {
+        console.log("Invalid data in local storage")
+    }
+
+    let contactContainer = document.getElementById("contact-cont")
+    contactContainer.innerHTML = links.map((link, i) => {
+        return `
+<div class="person" onclick="showMessage(${i})">
+    <div class="name">${link.n}</div>
+    <div class="num">${link.p}</div>
+</div>        
+        `.trim()
+    }).join('\n')
+
+}
 
 (function () {
     'use strict';
@@ -98,6 +139,7 @@ let msg = urlParams.get('text');
             margin: 1vw;
             cursor: pointer;
             box-shadow: #00000054 1px 3px 3px 0px;
+            user-select: none;
         }
 
         .person:hover {
@@ -132,11 +174,10 @@ let msg = urlParams.get('text');
             width: 49vw;
             display: flex;
             flex-direction: column;
-            background-color: white;
             margin: 1vw;
         }
 
-        #wa-header{
+        #wa-name{
             background-color: #f1f2f6;
             padding: 1vw;
             border-radius: 0.5vw;
@@ -152,13 +193,14 @@ let msg = urlParams.get('text');
             overflow-y: scroll;
         }
 
-        .wa-msg{
+        #wa-msg{
             background-color: #d8fdd2;
             width: 80%;
             margin: 2vw;
             padding:1.5vw;
             border-radius: 1vw;
             height: fit-content;
+            white-space: break-spaces;
         }
         </style>
         `.trim()
@@ -178,21 +220,14 @@ let msg = urlParams.get('text');
     <div id="body">
       <div id="contacts">
         <div id="contact-cont">
-
-          <div class="person">
-            <div class="name"></div>
-            <div class="num"></div>
-          </div>
         </div>
       </div>
 
       <div id="screen">
-        <div id="wa-header">
-          welcome to whatsapp
-        </div>
+        <div id="wa-name"></div>
 
         <div id="wa-body">
-          <div class="wa-msg"></div>
+          <div id="wa-msg"></div>
         </div>
       </div>
 
@@ -201,6 +236,8 @@ let msg = urlParams.get('text');
   </body>
     `.trim()
 
-  listenToEvents()
+    listenToEvents()
+
+    renderSavedData()
 
 })();
