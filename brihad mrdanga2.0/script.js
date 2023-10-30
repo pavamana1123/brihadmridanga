@@ -65,6 +65,7 @@ const markdown = (text) => {
 }
 
 const showMessage = (i) => {
+
     let link = links[i]
     document.getElementById('wa-name').innerHTML = link.n
     document.getElementById('wa-msg').innerHTML = markdown(link.m)
@@ -83,9 +84,14 @@ const renderSavedData = () => {
 <div class="person" onclick="showMessage(${i})">
     <div class="name">${link.n}</div>
     <div class="num">${link.p}</div>
-</div>        
+</div>
         `.trim()
     }).join('\n')
+
+    let persons = document.getElementsByClassName("person")
+    for(let i=0; i<persons.length; i++){
+        persons[i].addEventListener("click", ()=>{showMessage(i)})
+    }
 
 }
 
@@ -93,7 +99,7 @@ const renderSavedData = () => {
     'use strict';
     let scripts = document.getElementsByTagName('script')
     for (let i = 0; i < scripts.length; i++) {
-        scripts[i].remove()
+        // scripts[i].remove()
     }
 
 
