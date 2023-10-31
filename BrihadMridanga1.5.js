@@ -247,7 +247,9 @@ async function send(e){
 
                 await sleep(150)
                 w.window.document.getElementsByClassName(SEND_BUTTON)[0].click()
-                await sleep(18000)
+                var t3 = new Date().getTime()
+                var tw = 36000-(t3-t1)
+                await sleep(tw>0?tw:10)
 
                 while(w.window.document.getElementsByClassName("ooty25bp").length<=msgC){
                     pendingTimer++
