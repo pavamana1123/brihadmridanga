@@ -9,9 +9,10 @@
 // @grant        none
 // ==/UserScript==
 
-const PROFILE_HEADER_CLASS = "_2Ts6i"
-const SEND_BUTTON = "p2rjqpw5"
-const INVALID_NUM = "_2Nr6U"
+const PROFILE_HEADER_CLASS = "x1pl83jw"
+const SEND_BUTTON = "x1lfpgzf"
+const INVALID_NUM = "x12lqup9"
+const MSG_BLOCK = "x1yrsyyn"
 
 function sleep(n) {
   return new Promise(resolve => {
@@ -234,16 +235,16 @@ async function send(e){
         current.textContent="Sending..."
         // current.scrollIntoView()
         var t1 = new Date().getTime()
-        await waitToOpen(w,PROFILE_HEADER_CLASS)
+        await waitToOpen(w, PROFILE_HEADER_CLASS)
        // console.log("starting to wait", new Date())
-        var msg = await waitForSendOrFail(w,SEND_BUTTON)
+        var msg = await waitForSendOrFail(w, SEND_BUTTON)
         //console.log("wait is over", new Date())
         //console.log("msg:",msg)
         switch(msg){
             case 'OK':
                 //console.log("waiting to send", new Date())
 
-                var msgC = w.window.document.getElementsByClassName("ooty25bp").length
+                var msgC = w.window.document.getElementsByClassName(MSG_BLOCK).length
 
                 await sleep(150)
                 w.window.document.getElementsByClassName(SEND_BUTTON)[0].click()
@@ -251,7 +252,7 @@ async function send(e){
                 var tw = 36000-(t3-t1)
                 await sleep(tw>0?tw:10)
 
-                while(w.window.document.getElementsByClassName("ooty25bp").length<=msgC){
+                while(w.window.document.getElementsByClassName(MSG_BLOCK).length<=msgC){
                     pendingTimer++
                     if(pendingTimer>150){
                         current.textContent="Pending Timed-out"
