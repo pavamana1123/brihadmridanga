@@ -10,7 +10,7 @@
 // ==/UserScript==
 
 const PROFILE_HEADER_CLASS = "x1pl83jw"
-const SEND_BUTTON = "x1lfpgzf"
+const SEND_BUTTON = "x1iy03kw"
 const INVALID_NUM = "x12lqup9"
 const MSG_BLOCK = "x1yrsyyn"
 
@@ -235,11 +235,11 @@ async function send(e){
         current.textContent="Sending..."
         // current.scrollIntoView()
         var t1 = new Date().getTime()
-        await waitToOpen(w, PROFILE_HEADER_CLASS)
+       //await waitToOpen(w, PROFILE_HEADER_CLASS)
        // console.log("starting to wait", new Date())
         var msg = await waitForSendOrFail(w, SEND_BUTTON)
-        //console.log("wait is over", new Date())
-        //console.log("msg:",msg)
+        console.log("wait is over", new Date())
+        console.log("msg:",msg)
         switch(msg){
             case 'OK':
                 //console.log("waiting to send", new Date())
