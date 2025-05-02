@@ -10,7 +10,7 @@
 // ==/UserScript==
 
 const PROFILE_HEADER_CLASS = "x1pl83jw"
-const SEND_BUTTON = "x1iy03kw"
+const SEND_BUTTON = "xmper1u"
 const INVALID_NUM = "x12lqup9"
 const MSG_BLOCK = "x1yrsyyn"
 
